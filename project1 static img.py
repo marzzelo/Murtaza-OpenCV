@@ -54,7 +54,7 @@ def findPenTip(img, myColors, myColorValues):
         mask = cv2.inRange(imgHSV, lower, upper)
         
         masked = cv2.bitwise_and(img, img, mask=mask)
-        # draw a white frame around the masked image
+        # draw a white capture around the masked image
         masked = cv2.rectangle(masked, (0, 0), (frameWidth, frameHeight), (255, 255, 255), 5)
         
         components.append(masked)

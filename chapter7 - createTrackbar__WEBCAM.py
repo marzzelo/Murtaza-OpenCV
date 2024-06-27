@@ -4,14 +4,22 @@ import numpy as np
 from Modules.stackImg import stackImages
 from Modules.trackbars import TrackBars
 
-path = "Resources/shapes.png"
-
 tbars = TrackBars()
 tbars.createTrackBars()
 
-img = cv2.imread(path)
+try:
+    cap = cv2.VideoCapture(0)
+except Exception as e:
+    print(e)
+    exit(1)
+
+cur_brightness = -0
+
+cap.set(10, cur_brightness)  # 10 == cv.CAP_PROP_BRIGHTNESS
 
 while True:
+    success, img = cap.read()
+
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     imgH = imgHSV[:, :, 0]  # hue
     imgS = imgHSV[:, :, 1]  # saturation
@@ -36,4 +44,4 @@ while True:
         break
 
 print("\n\nValues of TrackBars: (h_min, s_min, v_min, h_max, s_max, v_max)")
-print(h_min, s_min, v_min, h_max, s_max, v_max)
+print(f'{h_min}, {s_min}, {v_min}, {h_max}, {s_max}, {v_max}')
